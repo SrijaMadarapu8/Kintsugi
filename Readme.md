@@ -1,1 +1,3 @@
 #README
+# yarn
+# yarn dev
