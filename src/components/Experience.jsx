@@ -8,7 +8,7 @@ export const Experience = () => {
   const { camera } = useThree();
   
   useEffect(() => {
-    camera.position.set(1, 0, 5);
+    camera.position.set(0, -3, 2);
   }, [camera]);
 
   return (
@@ -18,7 +18,7 @@ export const Experience = () => {
         enableZoom={false}
         enableRotate={false}
       />
-      <group position={[2, -1, 0]}>
+      <group position={[1.5, 0, -1]}>
         <Avatar />
       </group>
       <ambientLight intensity={1} />
