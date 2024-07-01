@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/clouds(1).svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avatar</title>
+  </head>
+  <body>
+    <h1>Upload Audio File for Speech to Text</h1>
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" id="audio-file" name="file">
+        <button type="submit">Upload</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            const fileField = document.querySelector('input[type="file"]');
+            formData.append('file', fileField.files[0]);
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                document.getElementById('result').innerText = result.recognized_text || result.error;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerText = 'Failed to fetch';
+            }
+        });
+    </script>
+</body>
+</html>
